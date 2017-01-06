@@ -5,7 +5,7 @@ Meteor.methods({
 
 	deleteUser: function(userId) {
 		var user = Meteor.user();
-		if (!user || !Roles.userIsInRole(user, ['admin']))
+		if (!user || !Roles.userIsInRole(user, ['administration.member']))
 			throw new Meteor.Error(401, "You need to be an admin to delete a user.");
 
 		if (user._id == userId)
@@ -17,7 +17,7 @@ Meteor.methods({
 
 	addUserRole: function(userId, role) {
 		var user = Meteor.user();
-		if (!user || !Roles.userIsInRole(user, ['admin']))
+		if (!user || !Roles.userIsInRole(user, ['administration.member']))
 			throw new Meteor.Error(401, "You need to be an admin to update a user.");
 
 		// if (user._id == userId)
@@ -37,7 +37,7 @@ Meteor.methods({
 
 	removeUserRole: function(userId, role) {
 		var user = Meteor.user();
-		if (!user || !Roles.userIsInRole(user, ['admin']))
+		if (!user || !Roles.userIsInRole(user, ['administration.member']))
 			throw new Meteor.Error(401, "You need to be an admin to update a user.");
 
 		// if (user._id == userId)
@@ -56,7 +56,7 @@ Meteor.methods({
 
 	addRole: function(role) {
 		var user = Meteor.user();
-		if (!user || !Roles.userIsInRole(user, ['admin']))
+		if (!user || !Roles.userIsInRole(user, ['administration.member']))
 			throw new Meteor.Error(401, "You need to be an admin to update a user.");
 
 		// handle existing role
@@ -68,21 +68,21 @@ Meteor.methods({
 
 	removeRole: function(role) {
 		var user = Meteor.user();
-		if (!user || !Roles.userIsInRole(user, ['admin']))
+		if (!user || !Roles.userIsInRole(user, ['administration.member']))
 			throw new Meteor.Error(401, "You need to be an admin to update a user.");
 
 		// handle non-existing role
 		if (Meteor.roles.find({name: role}).count() < 1 )
 			throw new Meteor.Error(422, 'Role ' + role + ' does not exist.');
 
-		if (role === 'admin')
+		if (role === 'administration.member')
 			throw new Meteor.Error(422, 'Cannot delete role admin');
 
 		// remove the role from all users who currently have the role
 		// if successfull remove the role
 		Meteor.users.update(
 			{roles: role },
-			{$pull: {roles: role }},
+			{$pull: {'roles.__global_roles__': role }},
 			{multi: true},
 			function(error) {
 				if (error) {
@@ -96,7 +96,7 @@ Meteor.methods({
 
 	updateUserInfo: function(id, property, value) {
 		var user = Meteor.user();
-		if (!user || !Roles.userIsInRole(user, ['admin']))
+		if (!user || !Roles.userIsInRole(user, ['administration.member']))
 			throw new Meteor.Error(401, "You need to be an admin to update a user.");
 
 		if (property !== 'profile.name')

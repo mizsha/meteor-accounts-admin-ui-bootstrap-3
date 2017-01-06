@@ -1,8 +1,8 @@
 Meteor.startup(function() {
 	// console.log('accounts-admin startup');
 	// create an admin role if it doesn't exist
-	if (Meteor.roles.find({name: 'admin'}).count() < 1 ) {
-		Roles.createRole('admin');
+	if (Meteor.roles.find({name: 'administration.member'}).count() < 1 ) {
+		Roles.createRole('administration.member');
 	}
 	if(process.env.NODE_ENV == 'development' && process.env.METEOR_RANDOM_USERS)
 	{

@@ -83,7 +83,7 @@ if (Meteor.isServer) {
 	Meteor.startup(function () {
 		// bootstrap the admin user if they exist -- You'll be replacing the id later
 		if (Meteor.users.findOne("your_admin_user_id"))
-			Roles.addUsersToRoles("your_admin_user_id", ['admin']);
+			Roles.addUsersToRoles("your_admin_user_id", ['administration.member']);
 
 		// create a couple of roles if they don't already exist (THESE ARE NOT NEEDED -- just for the demo)
 		if(!Meteor.roles.findOne({name: "secret"}))
@@ -98,7 +98,7 @@ if (Meteor.isClient) {
 	Template.adminTemplate.helpers({
 		// check if user is an admin
 		isAdminUser: function() {
-			return Roles.userIsInRole(Meteor.user(), ['admin']);
+			return Roles.userIsInRole(Meteor.user(), ['administration.member']);
 		}
 	})
 }
@@ -139,14 +139,14 @@ if (Meteor.isClient) {
 </template>
 ```
 
-After you edit app.js and app.html you need to create a new user and then set the 'admin' role to that user.
+After you edit app.js and app.html you need to create a new user and then set the 'administration.member' role to that user.
 
 1. Go to [http://localhost:3000](http://localhost:3000) and click on the "Sign In / Up" and create your user there.
 2. In the browser console grab the user id from the user you just created Meteor.userId()
 3. Copy the user id and paste it into to "your_admin_user_id" in app.js created above.
-4. Restart meteor 
+4. Restart meteor
 
-At this point you should see the UI.  Signout and add a few more users so you can play with the roles. You can add and 
+At this point you should see the UI.  Signout and add a few more users so you can play with the roles. You can add and
 remove roles all through the UI.
 
 ## Iron Router Integration
@@ -172,7 +172,7 @@ Router.map(function() {
 		onBeforeAction: function() {
 			if (Meteor.loggingIn()) {
                 this.render(this.loadingTemplate);
-            } else if(!Roles.userIsInRole(Meteor.user(), ['admin'])) {
+            } else if(!Roles.userIsInRole(Meteor.user(), ['administration.member'])) {
                 console.log('redirecting');
                 this.redirect('/');
             }

@@ -1,6 +1,6 @@
 filteredUserQuery = function(userId, filter, skip, limit) {
 	// if not an admin user don't show any other user
-	if (!Roles.userIsInRole(userId, ['admin']))
+	if (!Roles.userIsInRole(userId, ['administration.member']))
 		return Meteor.users.find(userId);
 
 	// TODO: configurable limit and paginiation

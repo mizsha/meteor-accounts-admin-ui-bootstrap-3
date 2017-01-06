@@ -7,7 +7,7 @@ Meteor.publish('filteredUsers', function(filter, skip, limit) {
 	var users = null;
 	var userId = this.userId;
 	var query = {};
-	if (!Roles.userIsInRole(userId, ['admin']))
+	if (!Roles.userIsInRole(userId, ['administration.member']))
 		return Meteor.users.find(userId);
 	// TODO: configurable limit and paginiation
 	// var queryLimit = 25;
