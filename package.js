@@ -1,7 +1,7 @@
 Package.describe({
 	name: 'mizsha:meteor-accounts-admin-ui-bootstrap-3',
 	summary: "A roles based account management system using bootstrap 3",
-	version: "0.2.8",
+	version: "0.2.9",
 	git: "https://github.com/mizsha/meteor-accounts-admin-ui-bootstrap-3.git"
 });
 
