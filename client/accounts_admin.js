@@ -14,7 +14,7 @@ Template.accountsAdmin.onCreated(function(){
     if(Meteor.isDevelopment) console.info(this.view.name+'.created');
 
 	Meteor.call('maxUsers', function(err,res) {
-		if(!err) 
+		if(!err)
 		{
 			template.maxUsers.set(res);
 			var page = template.adminUsersPage.get();//Session.get('adminUsersPage');
@@ -131,8 +131,8 @@ Template.accountsAdmin.helpers({
 	},
 
 	displayRoles: function() {
-		// console.log(this);
-		return this.roles ? this.roles.join(', ') : '';
+		console.log(this);
+		return this.roles ? this.roles.__global_roles__.join(', ') : '';
 	}
 });
 

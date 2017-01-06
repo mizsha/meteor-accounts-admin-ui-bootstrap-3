@@ -1,12 +1,13 @@
 Package.describe({
+	name: 'mizsha:meteor-accounts-admin-ui-bootstrap-3',
 	summary: "A roles based account management system using bootstrap 3",
 	version: "0.2.8",
-	git: "https://github.com/hharnisc/meteor-accounts-admin-ui-bootstrap-3.git"
+	git: "https://github.com/mizsha/meteor-accounts-admin-ui-bootstrap-3.git"
 });
 
 Package.on_use(function (api, where) {
-  api.versionsFrom("METEOR@0.9.0");
-  	api.use('reactive-var', ['client', 'server']);
+	api.versionsFrom("METEOR@0.9.0");
+	api.use('reactive-var@1.0.11', ['client', 'server']);
 	api.use('standard-app-packages', ['client', 'server']);
 	api.use("alanning:roles@1.2.8", ['client', 'server']);
 
@@ -24,7 +25,7 @@ Package.on_use(function (api, where) {
 	api.add_files('client/update_roles_modal.html', 'client');
 	api.add_files('client/update_roles_modal.js', 'client');
 
-    api.export('AccountsAdmin');
+	api.export('AccountsAdmin');
 
 	api.add_files('style/style.css', 'client');
 

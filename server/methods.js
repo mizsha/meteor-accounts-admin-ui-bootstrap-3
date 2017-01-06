@@ -2,7 +2,7 @@ Meteor.methods({
 	maxUsers: function() {
 		return Meteor.users.find().count();
 	},
-	
+
 	deleteUser: function(userId) {
 		var user = Meteor.user();
 		if (!user || !Roles.userIsInRole(user, ['admin']))
@@ -10,7 +10,7 @@ Meteor.methods({
 
 		if (user._id == userId)
 			throw new Meteor.Error(422, 'You can\'t delete yourself.');
-		
+
 		// remove the user
 		Meteor.users.remove(userId);
 	},
@@ -32,7 +32,7 @@ Meteor.methods({
 			throw new Meteor.Error(422, 'Account already has the role ' + role);
 
 		// add the user to the role
-		Roles.addUsersToRoles(userId, role);
+		Roles.addUsersToRoles(userId, role, Roles.GLOBAL_GROUP);
 	},
 
 	removeUserRole: function(userId, role) {
